@@ -47,7 +47,7 @@ def args_parser():
     # other arguments
     parser.add_argument('--device', default=torch.device("cuda" if torch.cuda.is_available() else "cpu"))
     parser.add_argument('--verbose', action='store_true', help='verbose print')
-    parser.add_argument('--seed', type=int, default=2023, help='random seed (default: 1)')
+    parser.add_argument('--seed', type=int, default=2023, help='random seed (default: 2023)')
     parser.add_argument('--saveModels', action='store_true', help='save client local models')
     #store_false
     args = parser.parse_args(args=[])
