@@ -23,7 +23,7 @@ def aggregation(client_index, global_model, client_models, dict_users, t=None, t
     s = 0
     for j in client_index:
         # normal
-        s += len(dict_users[j]) #在client.train定义为本地训练数据集的大小
+        s += len(dict_users[j]) #the size of local dataset of each client
 
     global_w = global_model.state_dict()
     net_para_keys = global_model.state_dict().keys()
