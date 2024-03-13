@@ -44,7 +44,7 @@ def train_loss_show(args, loss_dict, clients_index):
     ax1.legend()
  
 
-    plt.show() 
+    plt.show() #图形可视
     
     
 def train_localacc_show(args, localacc_list):
@@ -57,5 +57,5 @@ def train_localacc_show(args, localacc_list):
     ax1.legend()
  
 
-    plt.show() 
+    plt.show() #图形可视
 

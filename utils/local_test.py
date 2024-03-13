@@ -13,7 +13,7 @@ from torch.utils.data import DataLoader, Dataset
 
 
 class DatasetSplit(Dataset):
-    def __init__(self, dataset, idxs): 
+    def __init__(self, dataset, idxs):#idxs对应的是dataset的索引
         self.dataset = dataset
         self.idxs = list(idxs)
 

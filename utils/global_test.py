@@ -13,9 +13,10 @@ import random
 import sys
 sys.path.append("..") 
 from utils.tSNE import FeatureVisualize
+from leaf.dataloader import get_LEAF_all_test_dataloader
 
 class DatasetSplit(Dataset):
-    def __init__(self, dataset, idxs): 
+    def __init__(self, dataset, idxs):#idxs对应的是dataset的索引
         self.dataset = dataset
         self.idxs = list(idxs)
 

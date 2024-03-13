@@ -9,8 +9,8 @@ from torchvision import datasets, transforms
 
 def client_sampling(args):
     
-    m = np.max([int(args.C * args.K), 1]) 
-    index = random.sample(range(0, args.K), m)  
+    m = np.max([int(args.C * args.K), 1])#C是client客户端采样率
+    index = random.sample(range(0, args.K), m)  # 在K个客户端中采样m个clients
     
     return index
 
@@ -23,6 +23,7 @@ def trainset_sampling_label(args, trainset, sample_rate, rare_class_nums, noniid
 
         labels = np.array(trainset.targets)[full_dict_user_train].tolist()
         labels_class = list(set(labels))
+        # sort labels从0到9排序标签和其对应的索引
         idxs_labels = np.vstack((full_dict_user_train, labels))
         idxs_labels = idxs_labels[:,idxs_labels[1,:].argsort()]
 
@@ -30,6 +31,7 @@ def trainset_sampling_label(args, trainset, sample_rate, rare_class_nums, noniid
         index_next_class = 0
         b = []
         d = list(np.random.choice(labels_class, rare_class_nums, replace=False))
+        #取得各个类别所对应的索引
         for k in range(num_classes):
             len_class = list(idxs_labels[1,:]).count(k)
 
@@ -65,6 +67,7 @@ def trainset_sampling_label_uniform(args, trainset, sample_number, rare_class_nu
 
         labels = np.array(trainset.targets)[full_dict_user_train].tolist()
         labels_class = list(set(labels))
+        # sort labels从0到9排序标签和其对应的索引
         idxs_labels = np.vstack((full_dict_user_train, labels))
         idxs_labels = idxs_labels[:,idxs_labels[1,:].argsort()]
 
@@ -72,7 +75,7 @@ def trainset_sampling_label_uniform(args, trainset, sample_number, rare_class_nu
         index_next_class = 0
         b = []
         d = list(np.random.choice(labels_class, rare_class_nums, replace=False))
-
+        #取得各个类别所对应的索引
         for k in range(args.num_classes):
             len_class = list(idxs_labels[1,:]).count(k)
 
@@ -107,14 +110,14 @@ def trainset_sampling(args, trainset, sample_rate, noniid_labeldir_part):
         full_dict_user_train = noniid_labeldir_part.client_dict[i]
 
         labels = np.array(trainset.targets)[full_dict_user_train]
-
+        # sort labels从0到9排序标签和其对应的索引
         idxs_labels = np.vstack((full_dict_user_train, labels))
         idxs_labels = idxs_labels[:,idxs_labels[1,:].argsort()]
 
         dict_class = {i: [] for i in range(args.num_classes)}
         index_next_class = 0
         b = []
-
+        #取得各个类别所对应的索引
         for k in range(args.num_classes):
             len_class = list(idxs_labels[1,:]).count(k)
 
@@ -143,7 +146,7 @@ def testset_sampling(args, testset, number_perclass, trainclass_df):
     idxs = np.arange(len(testset))
     labels = np.array(testset.targets)
 
-
+    # sort labels从0到9排序标签和其对应的索引
     idxs_labels = np.vstack((idxs, labels))
     idxs_labels = idxs_labels[:,idxs_labels[1,:].argsort()]
     
@@ -151,7 +154,7 @@ def testset_sampling(args, testset, number_perclass, trainclass_df):
     dict_class = {i: [] for i in range(args.num_classes)}
     index_next_class = 0
     
-
+    #取得各个类别所对应的索引
     for k in range(args.num_classes):
         len_class = list(idxs_labels[1,:]).count(k)
 
@@ -159,7 +162,7 @@ def testset_sampling(args, testset, number_perclass, trainclass_df):
         index_next_class = index_curent_class + len_class
 
         dict_class[k] = list(idxs_labels[0,index_curent_class:index_next_class])
-
+    #按照类别来进行采样测试集
     for i in range(args.K):
         b=  list()
         for k in range(args.num_classes): 
@@ -178,7 +181,7 @@ def testset_sampling1(args, testset, number_perclass, dict_clients_labelset):
     idxs = np.arange(len(testset))
     labels = np.array(testset.targets)
 
-
+    # sort labels从0到9排序标签和其对应的索引
     idxs_labels = np.vstack((idxs, labels))
     idxs_labels = idxs_labels[:,idxs_labels[1,:].argsort()]
     
@@ -186,6 +189,7 @@ def testset_sampling1(args, testset, number_perclass, dict_clients_labelset):
     dict_class = {i: [] for i in range(args.num_classes)}
     index_next_class = 0
     
+    #取得各个类别所对应的索引
     for k in range(args.num_classes):
         len_class = list(idxs_labels[1,:]).count(k)
 
@@ -193,7 +197,7 @@ def testset_sampling1(args, testset, number_perclass, dict_clients_labelset):
         index_next_class = index_curent_class + len_class
 
         dict_class[k] = list(idxs_labels[0,index_curent_class:index_next_class])
-
+    #按照类别来进行采样测试集
     for i in range(args.K):
         b=  list()
         for k in range(args.num_classes): 
@@ -214,7 +218,7 @@ def trainset_sampling_mixed_digit(args, clients_index, trainset, sample_rate, ra
 
         labels = np.array(trainset.targets)[full_dict_user_train].tolist()
         labels_class = list(set(labels))
-
+        # sort labels从0到9排序标签和其对应的索引
         idxs_labels = np.vstack((full_dict_user_train, labels))
         idxs_labels = idxs_labels[:,idxs_labels[1,:].argsort()]
 
@@ -222,7 +226,7 @@ def trainset_sampling_mixed_digit(args, clients_index, trainset, sample_rate, ra
         index_next_class = 0
         b = []
         d = list(np.random.choice(labels_class, rare_class_nums, replace=False))
-
+        #取得各个类别所对应的索引
         for k in range(args.num_classes):
             len_class = list(idxs_labels[1,:]).count(k)
 
@@ -255,6 +259,7 @@ def testset_sampling_mixed_digit(args, testset, number_perclass):
     idxs = np.arange(len(testset))
     labels = np.array(testset.targets)
 
+    # sort labels从0到9排序标签和其对应的索引
     idxs_labels = np.vstack((idxs, labels))
     idxs_labels = idxs_labels[:,idxs_labels[1,:].argsort()]
 
@@ -262,6 +267,7 @@ def testset_sampling_mixed_digit(args, testset, number_perclass):
     dict_class = {i: [] for i in range(args.num_classes)}
     index_next_class = 0
 
+    #取得各个类别所对应的索引
     for k in range(args.num_classes):
         len_class = list(idxs_labels[1,:]).count(k)
 
@@ -269,7 +275,7 @@ def testset_sampling_mixed_digit(args, testset, number_perclass):
         index_next_class = index_curent_class + len_class
 
         dict_class[k] = list(idxs_labels[0,index_curent_class:index_next_class])
-
+    #按照类别来进行采样测试集
     b=  list()
     for k in range(args.num_classes): 
         if len(dict_class[k]) < number_perclass:
@@ -290,6 +296,7 @@ def trainset_sampling_label_femnist(args, trainset, sample_rate, rare_class_nums
 
         labels = np.array(trainset.targets)[full_dict_user_train].tolist()
         labels_class = list(set(labels))
+        # sort labels从0到9排序标签和其对应的索引
         idxs_labels = np.vstack((full_dict_user_train, labels))
         idxs_labels = idxs_labels[:,idxs_labels[1,:].argsort()]
 
@@ -297,7 +304,7 @@ def trainset_sampling_label_femnist(args, trainset, sample_rate, rare_class_nums
         index_next_class = 0
         b = []
         d = list(np.random.choice(labels_class, rare_class_nums, replace=False))
-
+        #取得各个类别所对应的索引
         for k in range(args.num_classes):
             len_class = list(idxs_labels[1,:]).count(k)
 
@@ -329,6 +336,7 @@ def testset_sampling_femnist(args, testset, number_perclass, clients_labeset):
     idxs = np.arange(len(testset))
     labels = np.array(testset.targets)
 
+    # sort labels从0到9排序标签和其对应的索引
     idxs_labels = np.vstack((idxs, labels))
     idxs_labels = idxs_labels[:,idxs_labels[1,:].argsort()]
     
@@ -336,6 +344,7 @@ def testset_sampling_femnist(args, testset, number_perclass, clients_labeset):
     dict_class = {i: [] for i in range(args.num_classes)}
     index_next_class = 0
     
+    #取得各个类别所对应的索引
     for k in range(args.num_classes):
         len_class = list(idxs_labels[1,:]).count(k)
 
@@ -343,7 +352,7 @@ def testset_sampling_femnist(args, testset, number_perclass, clients_labeset):
         index_next_class = index_curent_class + len_class
 
         dict_class[k] = list(idxs_labels[0,index_curent_class:index_next_class])
-
+    #按照类别来进行采样测试集
     for i in range(args.K):
         b=  list()
         for k in range(args.num_classes): 
