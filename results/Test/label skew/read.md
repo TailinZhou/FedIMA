@@ -1,0 +1,1 @@
+This dir will save your out file after training. Note that you should create a new folder to save the results of each algorithm on each dataset and each random seed, like './label skew/cifar10/fedavg/seed2021'. 
