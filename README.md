@@ -9,7 +9,7 @@ For the dependency (our codes just use some common packadge) related to our code
 If our code has been helpful to you, we would appreciate a citation as follows:
 
 @article{zhou2023understanding,
-  title={Understanding Model Averaging in Federated Learning on Heterogeneous Data},
+  title={Understanding and Improving Model Averaging in Federated Learning on Heterogeneous Data},
   author={Zhou, Tailin and Lin, Zehong and Zhang, Jun and Tsang, Danny HK},
   journal={arXiv preprint arXiv:2305.07845},
   year={2023}
